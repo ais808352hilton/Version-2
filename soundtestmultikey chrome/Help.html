@@ -1,0 +1,71 @@
+<html>
+<head>
+<title> Help </title>
+<script src="processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+
+PFont prime;
+PImage yolo;
+PImage swag;
+
+void setup(){
+
+size( 1200, 1000 );
+background(50,50,50);
+frameRate( 30 );
+
+
+prime = loadFont("PRIMETIME");
+yolo = loadImage ("yoloball.png");
+swag = loadImage ("swag.png");
+}
+
+
+void draw()
+{
+fill(0,23,0);
+stroke(255,255,255);
+strokeWeight(5);
+rect(10,10,360,80);
+if (mousePressed == true && mouseButton == LEFT)
+{
+	if ( 10 < mouseX && mouseX < 370 &&
+		10 < mouseY && mouseY < 90)
+	{ 
+			
+			rect(10,10,360,80);
+			link("midterm.html");
+			
+	}
+}
+
+image(yolo, 150,600,360,360)
+image(swag, 660,600,360,360)
+
+text("All copyrights goes to H&G",20,950);
+
+
+fill(255,255,255);
+textFont(prime,60);
+text("Instructions",20,140);
+text("Main Menu",20,70); 
+textFont(prime,40);
+text("First. Use button 'w' 'a' 's' 'd' to control where", 20,200);
+text("the character moves",170,240);
+text("Second. Target is to eat the planets to win,",20,340);
+text("but if the red ball touches you, you lose",220,380);
+textFont(prime,30);
+text("If there's any problem",20,480);
+text("please contact us",20,510);
+text( "Email: YOLOSWAG@H&G.com.hk",20,540);
+}
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>

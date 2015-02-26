@@ -1,0 +1,1278 @@
+<title> Finding the distance between a point and your mouse </title>
+
+<!-- copy and paste the next 2 lines to setup the sound files, you must modify the loadsoundchrome.js file with your sounds -->
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome.js"></script>
+<!-- Stop copying here -->
+
+<center>
+    <script type="text/javascript" src="script/processing-1.4.1.js"></script>
+    <script type="text/processing" data-processing-target="mycanvas">
+
+/* @pjs globalKeyEvents = "true"; */
+
+PFont prime;
+PImage leung;
+PImage space;
+PImage planet1;
+PImage planet2;
+PImage planet3;
+
+
+int x1;
+int y1;
+int yoloball;
+int a1;
+int b1;
+int a2;
+int b2;
+int a3;
+int b3;
+
+int stage1;
+int stage2;
+int stage3;
+
+int keep1;
+int keep2;
+int keep3;
+int keep4;
+
+int maxsize;
+int counter1stopper;
+
+boolean left;
+boolean right;
+boolean front;
+boolean back;
+
+int redBallX;
+int redBallY;
+int redRandomX;
+int redRandomY;
+
+int redBall2X;
+int redBall2Y;
+int redRandom2X;
+int redRandom2Y;
+
+int moveX;
+int moveY;
+
+int move2X;
+int move2Y;
+
+int leungAppear; 
+
+void setup()
+{
+    size( 1200, 630 );  
+    background(0,0,0);
+    frameRate( 30 );
+
+    distance = 0;
+    maxsize = 50;
+	
+	prime = loadFont("PRIMETIME");
+	leung = loadImage("leung.png");
+	space = loadImage("space.jpg");
+	planet1 = loadImage("planet1.png");
+	planet2 = loadImage("planet2.png");
+	planet3 = loadImage("planet3.png");
+	
+	x1 = 550;
+	y1 = 270;
+	x2 = 90;
+	y2 = 100;
+	
+	keep2 = 1;
+	keep3 = 1;
+	keep4 = 1;
+	
+	left = false;
+	right = false;
+	front = false;
+	back = false;
+
+	a2 = random(30,1000);
+    b2 = random(50,200);
+    
+    a3 = random(30,550);
+    b3 = random(250,400);
+    
+    a4 = random(30,1000);
+    b4 = random(450,600);
+
+	stage1 = false;
+	stage2 = false;
+	stage3 = false;
+					
+	moveR = 2;
+	moveB = 2;
+	moveX = 2;
+	moveY = 2;
+	redBallX = 0;
+	redBallY = 0;
+	redRandomX = random(20,30);
+	redRandomY = random(20,30);
+	
+	redBall2X = 0;
+	redBall2Y = 0;
+	redRandom2X = random(20,30);
+	redRandom2Y = random(20,30);
+	move2X = 2;
+	move2Y = 2;
+	
+	leungAppear = true;
+	
+	winCounter = 0;
+	counter1stopper = 0;
+}  
+
+
+void draw()
+{
+	background(0,0,0);
+
+	image(space,0,0,1200,630);
+	
+	stroke(100,255,100);
+    strokeWeight(2);
+
+    
+    if (leungAppear == true)
+    	{
+    	    image(leung,x1,y1,x2,y2);
+		}
+    
+    if (keep2 == 1)
+    	{
+    		stroke(100,255,100);
+    		strokeWeight(2);
+    		fill(255,0,0);
+    		image(planet1,a2,b2,maxsize,maxsize);
+    	}
+	if (keep3 == 1)
+    	{
+    		stroke(100,255,100);
+    		strokeWeight(2);
+    		fill(255,0,0);
+    		image(planet2,a3,b3,maxsize,maxsize);
+    	}
+	if (keep4 == 1)
+    	{
+    		stroke(100,255,100);
+    		strokeWeight(2);
+    		fill(255,0,0);
+    		image(planet3,a4,b4,maxsize,maxsize);
+    	}
+
+    	// ball 1
+
+	if (x1 + 30 < a2 && y1 < b2)
+	{
+		if (sqrt(sq((x1+30)-a2)+sq((y1)-b2)) < 25)
+		{
+			
+			keep2 = false;
+			{
+				if(keep2 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 > a2 && y1 + 35 < b2)
+	{
+		if (sqrt(sq((x1)-a2)+sq((y1+35)-b2)) < 25)
+		{
+			keep2 = false;
+			{
+				if(keep2 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 60 > a2 && y1 + 35 > b2)
+	{
+		if (sqrt(sq((x1+60)-a2)+sq((y1+35)-b2)) < 25)
+		{
+			
+			keep2 = false;
+			{
+				if(keep2 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 30 < a2 && y1 + 70 > b2)
+	{
+		if (sqrt(sq((x1+30)-a2)+sq((y1+70)-b2)) < 25)
+		{
+			
+			keep2 = false;
+			{
+				if(keep2 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 30 < a2 && y1 < b2)
+	{
+		if (sqrt(sq((x1+30)-a2)+sq((y1)-b2)) < 25)
+		{
+			
+			keep2 = false;
+			{
+				if(keep2 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 > a2 && y1 + 35 < b2)
+	{
+		if (sqrt(sq((x1)-a2)+sq((y1+35)-b2)) < 25)
+		{
+			
+			keep2 = false;
+			{
+				if(keep2 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 60 > a2 && y1 + 35 > b2)
+	{
+		if (sqrt(sq((x1+60)-a2)+sq((y1+35)-b2)) < 25)
+		{
+			
+			keep2 = false;
+			{
+				if(keep2 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 30 < a2 && y1 + 70 > b2)
+	{
+		if (sqrt(sq((x1+30)-a2)+sq((y1+70)-b2)) < 25)
+		{
+			
+			keep2 = false;
+			{
+				if(keep2 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+		// ball 2
+		
+		if (x1 + 30 < a3 && y1 < b3)
+	{
+		if (sqrt(sq((x1+30)-a3)+sq((y1)-b3)) < 25)
+		{
+			
+			keep3 = false;
+			{
+				if(keep3 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 > a3 && y1 + 35 < b3)
+	{
+		if (sqrt(sq((x1)-a3)+sq((y1+35)-b3)) < 25)
+		{
+			
+			keep3 = false;
+			{
+				if(keep3 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 60 > a3 && y1 + 35 > b3)
+	{
+		if (sqrt(sq((x1+60)-a3)+sq((y1+35)-b3)) < 25)
+		{
+			
+			keep3 = false;
+			{
+				if(keep3 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 30 < a3 && y1 + 70 > b3)
+	{
+		if (sqrt(sq((x1+30)-a3)+sq((y1+70)-b3)) < 25)
+		{
+			
+			keep3 = false;
+			{
+				if(keep3 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 30 < a3 && y1 < b3)
+	{
+		if (sqrt(sq((x1+30)-a3)+sq((y1)-b3)) < 25)
+		{
+			
+			keep3 = false;
+			{
+				if(keep3 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 > a3 && y1 + 35 < b3)
+	{
+		if (sqrt(sq((x1)-a3)+sq((y1+35)-b3)) < 25)
+		{
+			
+			keep3 = false;
+			{
+				if(keep3 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 60 > a3 && y1 + 35 > b3)
+	{
+		if (sqrt(sq((x1+60)-a3)+sq((y1+35)-b3)) < 25)
+		{
+			
+			keep3 = false;
+			{
+				if(keep3 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 30 < a3 && y1 + 70 > b3)
+	{
+		if (sqrt(sq((x1+30)-a3)+sq((y1+70)-b3)) < 25)
+		{
+			
+			keep3 = false;
+			{
+				if(keep3 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	// ball 3
+	if (x1 + 30 < a4 && y1 < b4)
+	{
+		if (sqrt(sq((x1+30)-a4)+sq((y1)-b4)) < 25)
+		{
+			
+			keep4 = false;
+			{
+				if(keep4 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 > a4 && y1 + 35 < b4)
+	{
+		if (sqrt(sq((x1)-a4)+sq((y1+35)-b4)) < 25)
+		{
+			
+			keep4 = false;
+			{
+				if(keep4 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 60 > a4 && y1 + 35 > b4)
+	{
+		if (sqrt(sq((x1+60)-a4)+sq((y1+35)-b4)) < 25)
+		{
+			
+			keep4 = false;
+			{
+				if(keep4 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 30 < a4 && y1 + 70 > b4)
+	{
+		if (sqrt(sq((x1+30)-a4)+sq((y1+70)-b4)) < 25)
+		{
+			
+			keep4 = false;
+			{
+				if(keep4 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if (x1 + 30 < a4 && y1 < b4)
+	{
+		if (sqrt(sq((x1+30)-a4)+sq((y1)-b4)) < 25)
+		{
+		
+			keep4 = false;
+			{
+				if(keep4 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 > a4 && y1 + 35 < b4)
+	{
+		if (sqrt(sq((x1)-a4)+sq((y1+35)-b4)) < 25)
+		{
+			
+			keep4 = false;
+			{
+				if(keep4 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 + 60 > a4 && y1 + 35 > b4)
+	{
+		if (sqrt(sq((x1+60)-a4)+sq((y1+35)-b4)) < 25)
+		{
+			
+			keep4 = false;
+			{
+				if(keep4 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	if (x1 -+ 30 < a4 && y1 + 70 > b4)
+	{
+		if (sqrt(sq((x1+30)-a4)+sq((y1+70)-b4)) < 25)
+		{
+			
+			keep4 = false;
+			{
+				if(keep4 == false)
+				{ 
+					if (counter1stopper == 0)
+						{
+							winCounter = winCounter + 1;
+							counter1stopper = 3;
+						}
+					x2 = x2 + 20;
+					y2 = y2 + 20;
+					{
+					if (x2 > 110 && y2 > 120)
+						{
+							stage1=true;
+							{
+							if (stage1 == true)
+								{
+							  		stage2 = true;
+							  	}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+    if (left == true)
+    	{
+    		x1 = x1 - 5;
+    	}	    	
+    if (right == true)
+    	{
+    		x1 = x1 + 5;
+    	}	
+    if (front == true)
+    	{
+    		y1 = y1 - 5;
+    	} 	
+    if (back == true)
+    	{
+    		y1 = y1 + 5;
+    	}
+    	
+    if(stage1 == true)
+    	{
+    		x2 = 110;
+    		y2 = 120;
+    	}
+    if(stage2 == true)
+    	{
+    		x2 = 150;
+    		y2 = 160;
+    	}
+    if(stage3 == true)
+    	{
+    		x2 = 190;
+    		y2 = 200;
+    	}
+    	
+    fill(255,0,0);
+	ellipse(redBallX,redBallY,40,40);
+if(moveX == 1)
+	{
+		redBallX = redBallX - redRandomX
+	}
+if (redBallX > 1200)
+	{
+		moveX = 1;
+		redRandomX = random(20,30)
+	}
+if(moveX == 2)
+	{
+		redBallX = redBallX + redRandomX
+	}
+if (redBallX < 0)
+	{
+		moveX = 2;
+		redRandomX = random(20,30)
+	}
+if(moveY == 1)
+	{
+		redBallY = redBallY - redRandomY
+	}					
+if (redBallY > 630)
+	{
+		moveY = 1;
+		redRandomY = random(20,30)
+	}
+if(moveY == 2)
+	{
+		redBallY = redBallY + redRandomY
+	}
+if (redBallY < 0)
+	{
+		moveY = 2;
+		redRandomY = random(20,30)
+	}
+	
+	
+	fill(255,0,0);
+	ellipse(redBall2X,redBall2Y,40,40);
+if(move2X == 1)
+	{
+		redBall2X = redBall2X - redRandom2X
+	}
+if (redBall2X > 1200)
+	{
+		move2X = 1;
+		redRandom2X = random(20,30)
+	}
+if(move2X == 2)
+	{
+		redBall2X = redBall2X + redRandom2X
+	}
+if (redBall2X < 0)
+	{
+		move2X = 2;
+		redRandom2X = random(20,30)
+	}
+if(move2Y == 1)
+	{
+		redBall2Y = redBall2Y - redRandom2Y
+	}					
+if (redBall2Y > 630)
+	{
+		move2Y = 1;
+		redRandom2Y = random(100,20)
+	}
+if(move2Y == 2)
+	{
+		redBall2Y = redBall2Y + redRandomY
+	}
+if (redBall2Y < 0)
+	{
+		move2Y = 2;
+		redRandom2Y = random(20,50)
+	}
+    
+    //leung touching ball 1
+    
+	 if (x1 + 90 < redBallX && y1 < redBallY)
+	{
+		if (sqrt(sq((x1+90)-redBallX)+sq((y1)-redBallY)) < 30)
+		{
+			leungAppear = false;
+		}
+	}
+	
+	if (x1 > redBallX && y1 + 100 < redBallY)
+	{
+		if (sqrt(sq((x1)-redBallX)+sq((y1+100)-redBallY)) < 30)
+		{
+			leungAppear = false;
+		}
+	}
+	if (x1 > redBallX && y1 > redBallY)
+	{
+		if (sqrt(sq((x1)-redBallX)+sq((y1)-redBallY)) < 30)
+		{
+			leungAppear = false;
+		}
+	}
+	if (x1 + 90 < redBallX && y1 + 100 > redBallY)
+	{
+		if (sqrt(sq((x1+90)-redBallX)+sq((y1)-redBallY)) < 30)
+		{
+			leungAppear = false;
+		}
+	}
+	
+	//leung touching ball 2
+	
+	 if (x1 + 90 < redBall2X && y1 < redBall2Y)
+	{
+		if (sqrt(sq((x1+90)-redBall2X)+sq((y1)-redBall2Y)) < 20)
+		{
+			leungAppear = false;
+		}
+	}
+	
+	if (x1 > redBall2X && y1 + 100 < redBall2Y)
+	{
+		if (sqrt(sq((x1)-redBall2X)+sq((y1+100)-redBall2Y)) < 25)
+		{
+			leungAppear = false;
+		}
+	}
+	if (x1 > redBall2X && y1 > redBall2Y)
+	{
+		if (sqrt(sq((x1)-redBall2X)+sq((y1)-redBall2Y)) < 25)
+		{
+			leungAppear = false;
+		}
+	}
+	if (x1 + 90 < redBall2X && y1 + 100 > redBall2Y)
+	{
+		if (sqrt(sq((x1+90)-redBall2Y)+sq((y1+100)-redBall2Y)) < 25)
+		{
+			leungAppear = false;
+		}
+	}
+    	if (leungAppear == false)
+    	{
+    	 textFont(prime,197);
+    	 text("GAME OVER",5,300);
+    	 textFont(prime,20);
+    	 fill(255,0,0);
+    	 rect(300,400,100,45);
+    	 fill(0,0,255);
+    	 text("RESTART",305,430);
+    	 if (mousePressed == true && mouseButton == LEFT)
+			{	
+			if (mouseX > 300 && mouseX < 400 && mouseY > 400 && mouseY < 445)
+				{
+					leungAppear = true;
+					keep2 = 1;
+					keep3 = 1;
+					keep4 = 1;
+					redBall2X = 0;
+					redBall2Y = 0;
+					redRandom2X = random(20,30);
+					redRandom2Y = random(20,30);
+					move2X = 2;
+					move2Y = 2;
+					x1 = 550;
+					y1 = 270;
+					x2 = 90;
+					y2 = 100;
+					stage1=false;
+					stage2=false;
+				}
+			} 
+    	}
+    	
+    	if (leungAppear == false)
+    	{
+    	 textFont(prime,197);
+    	 text("GAME OVER",5,300);
+    	 textFont(prime,20);
+    	 fill(255,0,0);
+    	 rect(700,400,100,45);
+    	 fill(0,0,255);
+    	 text("HOME",710,430);
+    	 if (mousePressed == true && mouseButton == LEFT)
+			{	
+			if (mouseX > 700 && mouseX < 800 && mouseY > 400 && mouseY < 445)
+				{
+					link("midterm.html");
+				}
+			} 
+    	}
+    	
+    	if (winCounter == 3) 
+    	{
+    	textFont(prime,197);
+    	fill(0,0,255);
+    	text("YOU WIN",350,300);
+    	textFont(prime,20);
+    	 fill(255,0,0);
+    	 rect(300,400,100,45);
+    	 fill(0,0,255);
+    	 text("RESTART",305,430);
+    	 if (mousePressed == true && mouseButton == LEFT)
+			{	
+			if (mouseX > 300 && mouseX < 400 && mouseY > 400 && mouseY < 445)
+				{
+					leungAppear = true;
+					keep2 = 1;
+					keep3 = 1;
+					keep4 = 1;
+					redBall2X = 0;
+					redBall2Y = 0;
+					redRandom2X = random(20,30);
+					redRandom2Y = random(20,30);
+					move2X = 2;
+					move2Y = 2;
+					x1 = 550;
+					y1 = 270;
+					x2 = 90;
+					y2 = 100;
+					stage1=false;
+					stage2=false;
+				}
+			} 
+    	
+    	}
+    	text("You have "+winCounter,1010,430);
+    	
+}
+void keyPressed()
+{
+	if (key == 'w')
+		{
+			front = true;
+		}
+	if (key == 'a')
+		{
+			left = true;
+		}
+	if (key == 's')
+		{
+			back = true;
+		}
+	if (key == 'd')
+		{
+			right = true;
+		}
+		
+}
+void keyReleased()
+{
+	if (key == 'w')
+		{
+			front = false;
+		}
+	if (key == 'a')
+		{
+			left = false;
+		}
+	if (key == 's')
+		{
+			back = false;
+		}
+	if (key == 'd')
+		{
+			right = false;
+		}
+	
+}
+
+void mouseReleased()
+{
+	counter1stopper =0;
+	
+}
+
+    </script>
+    <canvas id="mycanvas"></canvas>
+</center>

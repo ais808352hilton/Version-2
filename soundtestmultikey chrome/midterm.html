@@ -1,0 +1,83 @@
+<html>
+<head>
+<title> Ball Eater </title>
+<script src="processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+
+PFont prime;
+PImage eater;
+
+void setup()
+{
+
+size( 1200, 1000 );
+background(50,50,50);
+frameRate( 30 );
+
+eater = loadImage("eater2.jpg");
+prime = loadFont("PRIMETIME");
+
+}
+
+
+void draw()
+{
+
+image(eater,0,0,1200,1000);
+
+
+fill(0,23,0);
+stroke(255,255,255);
+strokeWeight(5);
+rect(590,520,500,120);
+
+if (mousePressed == true && mouseButton == LEFT)
+{
+	if ( 590 < mouseX && mouseX < 1090 &&
+		520 < mouseY && mouseY < 640)
+	{ 
+			
+			link("project.html");
+			
+	}
+}
+
+rect(590,700,500,120);
+
+if (mousePressed == true && mouseButton == LEFT)
+{
+	if ( 590 < mouseX && mouseX < 1090 &&
+		700 < mouseY && mouseY < 820)
+	{ 
+			
+			link("Help.html");
+			
+	}
+}
+
+fill(255,255,255);
+textFont(prime,120);
+text("Start",640,620);
+text("Help",640,800); 
+fill(255,0,255);
+textFont(prime,120);
+text("WELCOME TO",50,250);
+text("BALL EATER :D",100,450);
+
+
+
+
+
+
+}
+
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>
